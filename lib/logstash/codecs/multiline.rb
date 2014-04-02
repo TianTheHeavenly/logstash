@@ -192,7 +192,7 @@ class LogStash::Codecs::Multiline < LogStash::Codecs::Base
   end
 
   def do_previous(text, matched, &block)
-    flush(&block) if !matched
+    flush(&block) if !matched || (Time.now.utc - @time) >= 1000
     buffer(text)
   end
 
